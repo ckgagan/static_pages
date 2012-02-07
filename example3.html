@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Example #3</title>
+  <style>
+    #tooltip {  position: absolute;z-index: 3000; border: 1px solid #111;background-color: #eee;padding: 5px;opacity: 0.85;width: 300px;  }
+    #tooltip h3, #tooltip div { margin: 0; }
+    body {  font-family: georgia;}
+    #wrapper { background: #FFF;position: relative; padding:0 10px;}
+    #content {  margin: 0 auto;width: 960px;margin-bottom: 20px;}
+    #header { border-bottom: solid 1px grey;padding: 10px 0 0px;height: 50px;font-size: 28px;font-weight: bold;color: #666666;margin: 0 auto;width: 960px;  margin-bottom :3px;}
+    ul{ list-style: decimal; }
+    textarea { font-family: georgia, arial;width: 464px;border: 1px solid #AAAAAA; }
+    select { height: 26px;margin-top: 4px;  padding-top: 4px;width: 117px;}
+    input[type=text]{ border: 1px solid #aaa;margin-top:4px;font-size: 12px;height:25px;padding: 2px; }
+    input[type=submit]{ width: 95px;height: 40px;font-size: 15px; }
+
+    /*  People Number section */
+    #number_info {  margin-bottom: 20px; margin-top:42px; }
+    #number_info input[type=text] { height: 15px;width: 30px; }
+    #grave-number{  padding-left: 445px;  margin-top: -24px;position: relative; }
+    #people-number { padding-left:55px; }
+
+    a{ color: #007EB9;}
+    .grave_detail_short { width: 109px;}
+    .date { width: 75px;}
+    .name-suffix { width: 39px;}
+    #footer{  clear: both;padding: 10px; margin: 0 auto; width: 960px;}
+    #c-right{ margin-top: 11px; padding-left: 148px;}
+    #form_container { float: right;margin-bottom: 10px; width: 54%;}
+    .field-panel{ padding: 10px;float: left;border: 1px solid #9EAAB8;  margin-bottom: 10px;}
+
+    #image{ float: left;width: 24%;position: absolute;margin-top:-18px;}
+    #image img { border: 1px solid #9EAAB8;padding: 5px;max-height: 300px;max-width: 400px;}
+    #image span{ font-size: 17px;}
+    #image input{ margin-left: 30px;}
+    #image-hover-info{ font-size:14px;font-style:italic;color:#560303;padding:0px 22px 7px;width:340px; }
+    #image_readability { width: 270px; float:left;margin-right:7px}
+
+    .military_service_box { margin-top: 10px;}
+    .military_service_box .grave_detail_long { width: 428px !important;}
+    .birth-date, .death-date{ width: 250px;float: left;margin-right: 18px;}
+    .left { float: left;  margin-right: 14px;}
+    .date_info .left { margin-right: 4px;}
+    .right { float: right;  }
+    .extra, .mil_ser {  clear: left;  }
+    .name { height: 44px;margin-bottom: 20px;}
+    .extra { margin-top: 10px;margin-bottom: 10px;padding-top: 10px;}
+    .grave_detail_long { width: 464px!important;  }
+    .m_date { }
+    input.blur {  color: #999;}
+    .tooltip-target { left: -6px;position: relative;top: 5;}
+    .left .tooltip-target { top: 0;left: -3px;}
+    .tooltip-content {
+      display: none;      /* required */
+      position: absolute; /* required */
+      width: 250px;padding: 10px;border: 3px solid #AF8A31; background-color: #FFC848;text-align: center;color: black;
+     }
+    .tooltip-content p { margin: 0; }
+    #fancy-content-1 {  border: none;background: url('http://s3.amazonaws.com/theezpzway/files/1/original.png');  width: 277px;height: 96px;  }
+    .border-rounded { -webkit-border-radius: 6px; -moz-border-radius: 6px;border-radius: 6px;}
+    #judging_table{ clear:both; }
+    #submit_form {
+      border: solid 1px #2989d8; cursor: pointer;color: #fff;
+      background: #2989d8; /* Old browsers */
+      background: -moz-linear-gradient(top, #2989d8 0%, #7db9e8 0%, #7db9e8 0%, #7db9e8 22%, #207cca 57%, #1e5799 80%, #1e5799 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2989d8), color-stop(0%,#7db9e8), color-stop(0%,#7db9e8), color-stop(22%,#7db9e8), color-stop(57%,#207cca), color-stop(80%,#1e5799), color-stop(100%,#1e5799)); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top, #2989d8 0%,#7db9e8 0%,#7db9e8 0%,#7db9e8 22%,#207cca 57%,#1e5799 80%,#1e5799 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top, #2989d8 0%,#7db9e8 0%,#7db9e8 0%,#7db9e8 22%,#207cca 57%,#1e5799 80%,#1e5799 100%); /* Opera11.10+ */
+      background: -ms-linear-gradient(top, #2989d8 0%,#7db9e8 0%,#7db9e8 0%,#7db9e8 22%,#207cca 57%,#1e5799 80%,#1e5799 100%); /* IE10+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2989d8', endColorstr='#1e5799',GradientType=0 ); /* IE6-9 */
+      background: linear-gradient(top, #2989d8 0%,#7db9e8 0%,#7db9e8 0%,#7db9e8 22%,#207cca 57%,#1e5799 80%,#1e5799 100%); /* W3C */color: #fff;
+    }
+    #submit_form:hover{ color: #C9DDE3; }
+    #submit_form[disabled]{
+      border: solid 1px #888;cursor: auto;color: #888;
+      background: #eeeeee; /* Old browsers */
+      background: -moz-linear-gradient(top, #eeeeee 0%, #cccccc 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc)); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top, #eeeeee 0%,#cccccc 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top, #eeeeee 0%,#cccccc 100%); /* Opera11.10+ */
+      background: -ms-linear-gradient(top, #eeeeee 0%,#cccccc 100%); /* IE10+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+      background: linear-gradient(top, #eeeeee 0%,#cccccc 100%); /* W3C */
+    }
+    #submit{float:right;margin-bottom: 10px; padding-left: 105px; }
+    #submit-button{ margin-right:140px; float:right;}
+
+    /*  - - Worker Instruction  Lightbox - -  */
+    #instruction_button { color: #000;position: absolute; margin: -51px 468px; width: 135px;left:38%;padding:7px 0px 7px 12px;  border-radius:10px;background-color:#687096;}
+    #inst_button_text {text-decoration:none ;
+    color:#fff ;}
+    #facebox { position: absolute;width: 100%;top: 0;left: 0;z-index: 1000000000;text-align: left; }
+    #facebox .popup { position: relative;}
+    #facebox table { margin: auto; border-collapse: collapse; }
+    #facebox .body { padding: 10px; background: #fff; width: 550px; border: 8px solid #737373;}
+    #facebox .loading { text-align: center;}
+    #facebox .footer { border-top: 1px solid #DDDDDD; padding-top: 5px;margin-top: 10px;text-align: right; }
+   /*  - - End of instructions lightbox css - - */
+
+    #validation_errors{margin-top:10px;margin-bottom:30px;}
+
+   a#back{
+     cursor:pointer;
+   }
+  </style>
+
+   <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="http://remysharp.com/downloads/jquery.hint.js"></script>
+  <script src="https://raw.github.com/iufer/jLoupe/master/jquery.jloupe.js"></script>
+  <script src="http://jquery.bassistance.de/tooltip/jquery.tooltip.js"></script>
+  <script src="http://tomb-finder.s3.amazonaws.com/facefiles/lightbox.js" type="text/javascript"></script>
+
+  <script>
+  var expected_ans = { first_name: "chris", middle_name: "e.", surname: "grimsley", suffix: "Mr", birth_day:"31", birth_month:"10", birth_year:"1934", death_day:"15", death_month:"08", death_year:"1989",gender:"male"}
+    $(document).ready(function() {
+      template_html = $('#template').html();
+      $(template_html).appendTo('#form_container');
+
+      // checking whether the form is for Worker / Improver Stations
+      if(typeof cf_data_object != 'undefined'){
+        if (jQuery.isEmptyObject( cf_data_object ) !=true ){
+          // Change the Header Text
+          $('#header').text("Improve information from given grave stone");
+          // Remove instruction for worker station and add instruction for improver station's worker.
+          $('.instruction-list li').remove();
+          $('.instruction-list').append('<li>Carefully check all the information extracted from the given gravestone image in the form fields and edit the fields as necessary.</li>').append('<li>If an item in the grave stone is not readable, trying filling up your best guess and avoid leaving the field blank as much as practicable. </li>').append('<li> If there are more person in the gravestone image than the filled information, then click on <strong>Add person</strong> button and fill the information in the new form.</li>');
+          // Hide Div for generating new form by entering number of person
+          $('#grave-number').hide();
+          $('#add-people-buttons-div').show();
+          // Generate New Template for Improver station worker form.
+          processFormForImproverStation(cf_data_object);
+        }
+      }
+
+      $("#add-ppl-btn").click(function(){
+         template_html = $('#template').html();
+         $(template_html).appendTo('#form_container');
+         // Clear all the textboxes.
+         $($('#form_container .form-elements:last')).find(":input").each(function(){$(this).val("")});
+         $("#undo-add-ppl-btn").show();
+         initialize_tooltips();
+         $('input[title!=""]').hint();
+      });
+
+      $("#undo-add-ppl-btn").click(function(){
+         if(typeof cf_data_object != 'undefined'){
+           if ( $('#form_container .form-elements').length >  cf_data_object.first_name.length){
+             $('#form_container .form-elements:last').hide();
+             if ( $('#form_container .form-elements').length <=  cf_data_object.first_name.length){
+               $("#undo-add-ppl-btn").hide();
+             }
+           }
+         }
+      });
+
+      // Ligthbox for worker instruction
+      $('a[rel*=facebox]').facebox();
+
+      // Numeric Keys validation for birth year and death year
+      $("#birth_year").live('keydown',function(event) {
+        fPreventDefaultEvent(event);
+      });
+
+      $("#death_year").live('keydown',function(event) {
+        fPreventDefaultEvent(event);
+      });
+
+      var initialize_tooltips = function(){
+        $('.tooltips').tooltip({
+          bodyHandler: function() {
+            return $(this).attr("tooltip_content");
+          },
+          showURL: false
+        });
+      }
+
+      initialize_tooltips();
+
+      // Keep the image always on the view region as user scrolls the page.
+      $position = $("#image").position().top;
+      $(window).scroll(function(){
+        if($(window).scrollTop() > $position){
+          new_position = $(window).scrollTop();
+          $("#image").css({"top": new_position});
+        }
+      });
+
+      // Uncheck all the radio buttons
+      $("#number_info input[type=radio]").removeAttr('checked');
+
+      $("#form_container").show();
+      $("#submit_form").show();
+
+      // Build form based on radio option value
+      $("input#two").click(function(){
+        $("#form_container").show();
+        $(".form-elements").slice(1,$(".form-elements").length).remove();
+        $(".form-elements").task_form({'number':'1'});
+        $("#more_number").hide();
+        $("#submit_form").show();
+        $(".form-elements:last :input").val("")
+        $(".form-elements:last .military").parents('.field-panel').find('.military_service_box').hide();
+        $('input[title!=""]').hint();
+
+        initialize_tooltips();
+      });
+
+      $("input#more_than_two").click(function(){
+        $("#more_number").show();
+        $("#more_no_txt").val("");
+      });
+
+      $("input#more_no_btn").click(function(){
+        $("#form_container").show();
+        $(".form-elements").slice(1,$(".form-elements").length).remove();
+        var number = parseInt($("#more_no_txt").val()) - 1;
+        if ( number < 11){
+          $(".form-elements").task_form({'number': number});
+          $("#submit_form").show();
+          //Clear newly generated form.
+          for(i=1;i<$(".form-elements").length;i++){
+            $(".form-elements:eq("+i+") :input").val("");
+            $(".form-elements:eq("+i+") .military").parents('.field-panel').find('.military_service_box').hide();
+          }
+          $('input[title!=""]').hint();
+          initialize_tooltips();
+        }
+        else  {
+          alert ("Invalid Number.");
+        }
+      });
+
+      // Display form if it is judging mode
+      if ($("#judging_table").children().length > 0){
+        $("#form_container").show();
+        $("#submit_form").show();
+        $("#not_readable_message").hide();
+        $("#incorrectly_rotated_message").hide();
+      }
+
+      $('input[title!=""]').hint();
+
+      // Image magnifier
+      $('#grave_image').jloupe({
+        radiusLT: 0,
+        radiusRT: 10,
+        radiusRB: 0,
+        radiusLB: 10,
+        width: 500,
+        height: 350,
+        borderColor: '#f2730b',
+        backgroundColor: '#000',
+        fade: false,
+        cursorOffsetX: -250,
+        cursorOffsetY: 50
+      });
+
+      $('.military').live('change',function()  {
+        if (  $(this).val() =='yes'){
+            $(this).parents('.field-panel').find('.military_service_box').show();
+         }
+         else {
+          $(this).parents('.field-panel').find('.military_service_box').hide();
+        }
+      });
+
+      var hidden_and_empty_form_fields = function(operation){
+        var form_elements =  ['first_name','middle_name','surname','suffix','birth_day','birth_month','birth_year','death_day','death_month','death_year', 'gender', 'eulogy', 'veteran', 'military_service'];
+
+        if(operation == "add"){
+           $.each(form_elements, function(index, value) {
+             $('form').append('<input type="hidden" class="' + value + '" name="output[' + value + '][]" value="" />');
+           });
+           $("#submit_form").show();
+        }
+        else if(operation == "remove"){
+           if($("#form_container").is(":hidden")){
+             $("#submit_form").hide();
+           }
+         }
+       }
+
+      if($('#not_readable').is(":checked")){
+        hidden_and_empty_form_fields("add");
+      }
+
+      $('#not_readable').click(function(){
+        if($(this).is(':checked')){
+          $('form input[type=text]').attr('disabled','disabled');
+          $('form input[type=radio]').attr('disabled','disabled');
+          $('form textarea').attr('disabled','disabled');
+          $('form select').attr('disabled','disabled');
+          hidden_and_empty_form_fields("add");
+        }
+        else {
+          $('form input[type=text]').removeAttr('disabled');
+          $('form input[type=radio]').removeAttr('disabled','disabled');
+          $('form textarea').removeAttr('disabled','disabled');
+          $('form select').removeAttr('disabled','disabled');
+          hidden_and_empty_form_fields("remove");
+        }
+      });
+      });
+
+      (function( $ ){
+        var methods = {
+          init: function(options){
+            var settings = {
+              'number' : '1'
+            };
+            return this.each(function() {
+              // If options exist, lets merge them with our default settings
+              if ( options ) {
+                $.extend( settings, options );
+                $(this).task_form('build',{'number':settings.number})
+              }
+            })
+        },
+        build: function(options){
+          return this.each(function(){
+            for( i=0; i < options.number; i++){
+              var ele = $('.form-elements').first().clone();
+              $("#form_container").append(ele);
+              $('input[title!=""]').hint();
+            }
+          })
+        }
+      };
+
+      $.fn.task_form = function(method) {
+         if ( methods[method] ) {
+            return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
+         }
+         else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+         }
+         else {
+            $.error( 'Method ' +  method + ' does not exist on jQuery.task_form' );
+         }
+      };
+    })( jQuery );
+
+    function processFormForImproverStation(cf_data_object){
+        // Hide worker form from previous station
+        $("#form_container").html("");
+        $("#form_container").hide();
+
+        var jObj = cf_data_object;
+        var pNum = jObj.first_name.length; // Number of people in the image
+
+        template_html = $('#template').html();
+        for(i = 1;i <= pNum; i++){
+          $(template_html).appendTo('#form_container');
+
+          $('#form_container .field-panel:nth-of-type('+i+') #first_name').val(jObj.first_name[i-1]);
+          $('#form_container .field-panel:nth-of-type('+i+') #middle_name').val(jObj.middle_name[i-1]);
+          $('#form_container .field-panel:nth-of-type('+i+') #surname').val(jObj.surname[i-1]);
+
+          $('#form_container .field-panel:nth-of-type('+i+') #suffix').val(jObj.suffix[i-1]);
+
+          $('#form_container .field-panel:nth-of-type('+i+') #birth_day').val(jObj.birth_day[i-1]);
+          $('#form_container .field-panel:nth-of-type('+i+') #birth_month').val(jObj.birth_month[i-1]);
+          $('#form_container .field-panel:nth-of-type('+i+') #birth_year').val(jObj.birth_year[i-1]);
+
+          $('#form_container .field-panel:nth-of-type('+i+') #death_day').val(jObj.death_day[i-1]);
+          $('#form_container .field-panel:nth-of-type('+i+') #death_month').val(jObj.death_month[i-1]);
+          $('#form_container .field-panel:nth-of-type('+i+') #death_year').val(jObj.death_year[i-1]);
+
+          $('#form_container .field-panel:nth-of-type('+i+') #gender').val(jObj.gender[i-1]);
+          $('#form_container .field-panel:nth-of-type('+i+') #eulogy').val(jObj.eulogy[i-1]);
+
+          $('#form_container .field-panel:nth-of-type('+i+') #military_service').val(jObj.military_service[i-1]);
+          $('#form_container .field-panel:nth-of-type('+i+') #military_option').val(jObj.veteran[i-1]);
+
+          if ( $('#form_container .field-panel:nth-of-type('+i+') #military_option').val() =='yes'){
+            $('#form_container .field-panel:nth-of-type('+i+') #military_option').parents('.field-panel').find('.military_service_box').show();
+          }
+
+          $("#form_container").show();
+        } // end of for loop
+
+    } // end of processFormForImproverStation
+
+    // Function for numeric validation
+    function fPreventDefaultEvent(e){
+      // Allow only backspace and delete and Tab
+       if ( e.keyCode == 46 || e.keyCode == 8 || e.keyCode ==9) { }
+       else { // Allow only numeric letters
+            if ((e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105 )) {
+               e.preventDefault();
+            }
+       }
+    }
+
+    $('#tomfinder_form').live("submit",function(){
+      correct = 0;
+      $.each(expected_ans, function(key, value) {
+        console.log("expected "+key + "to be " + expected_ans[key] + " and got " + $("#"+key).val() );
+        if(expected_ans[key] == $("#"+key).val()){
+          correct += 1;
+        }
+      });
+      console.log("correct = "+correct)
+      if(correct > 8){
+        $("#user_message").html($('#success_message').html());
+      }else{
+        $("#user_message").html($('#failure_message').html());
+      }
+      $("#user_message").show();
+      $("#wrapper").hide();
+      return false;
+    });
+
+    function showPreviousForm(){
+      $("#user_message").hide();
+      $("#wrapper").show();
+    }
+
+    $("#back").live('click', function(){
+      showPreviousForm();
+    });
+
+  </script>
+
+</head>
+
+  <body>
+    <h1>Example Tasks for CloudFactory</h1>
+    Please try one or more of these example tasks to get an idea of work done. You need to do it as a CloudFactory Cloud Worker. This should enable you to get a general idea of how much you can earn through such tasks.
+    <div id="user_message" style="display:none">
+
+    </div>
+    <div id="wrapper">
+        <div id="header"> Extract information from given grave stone. </div>
+
+        <div id ="instruction_button">
+          <a href="#instruction" rel="facebox" id="inst_button_text">INSTRUCTIONS</a>
+        </div>
+
+        <div id="instruction" style="display:none">
+          <h2>Instructions</h2>
+          <p id="sample-note">(If this is your first time doing this type of work, you may want to take a look at <a target="_blank"
+            href="http://tomb-finder.s3.amazonaws.com/tombfinder_sample_1.png">sample work 1</a>, <a target="_blank" href="http://tomb-finder.s3.amazonaws.com/tombfinder_sample_2.png">sample work 2</a>).</p>
+            <ul class="instruction-list">
+              <li>If the image is completely not readable or blurry, check the 'image is not readable' and SUBMIT the hit.</li>
+              <li>Carefully identify the number of people in the grave stone and check the appropriate number radio button.</li>
+              <li>If there are more than two people in the gravestone image, click the 'More than Two' radio button then enter the number in the text box and press 'Ok'. This will generate the form accordingly. </li>
+              <li>Extract all information from the given grave stone image and fill them into the appropriate field of the form.</li>
+              <li>If the field does not exists in the grave stone image then leave the field <strong>blank</strong>. For example, if the image has no eulogy then leave the field blank in the form, do not add your own eulogy.</li>
+              <li>If an item in the grave stone image is partially readable, enter which is as much as readable data.<storng> A best guess data is better than the empty field</strong>.</li>
+            </ul>
+
+        </div>
+
+        <div id="content">
+          <div id="number_info">
+            <div id="grave-number">
+              If the gravestone carries more than one dead person name, select the right number: <br />
+              <input id="two" type="radio" name="output[number]" value="2" /> Two
+              <input id="more_than_two" type="radio" name="output[number]" value="2+" /> More than Two
+              <span id="more_number" style="display:none">
+                <div id="people-number">
+                  <label> Enter the Number of people : </label>
+                  <input id="more_no_txt" type="text" name="output[max_no]" /> <input id="more_no_btn" type="button" value="OK" />
+                </div>
+              </span>
+            </div>
+          </div> <!-- End of number_info -->
+
+          <div id="validation_errors">
+
+          </div>
+          <form id="tomfinder_form">
+              <div id="form_container" style="display:none">
+                  <!-- :::: Template for Form Elements Goes in Here :::: -->
+              </div>
+
+              <div id="image">
+                <div id="image-hover-info">Hover over the image for a zoomed in view</div>
+                <a href="http://radicalcivility.org/images/dads-gravestone-1.jpg">
+                  <img src="http://radicalcivility.org/images/dads-gravestone-1.jpg" id="grave_image" class="border-rounded"/>
+                  <!-- <img src="{{url}}" id="grave_image" class="border-rounded"/> -->
+                </a>
+              </div>  <!-- End of Image -->
+
+              <div id="submit">
+                <!-- ::::  Buttons for improver station Only :::: -->
+                <div id="add-people-buttons-div" style="display:none;">
+                  <input id="add-ppl-btn" type="button" value="Add person" />
+                  <input id="undo-add-ppl-btn" type="button" value="Undo Add" style="display:none;"/>
+                </div>
+
+                <div id ="image_readability">
+                  <input type="checkbox" id="not_readable" name="output[not_readable]" value="Yes" tabindex="-1"/> <span id="not_readable_message">Image is not readable</span>
+                <br />
+                  <input type="checkbox" name="output[rotated]" id="rotated" value="Yes" tabindex="-2"/> <span id="incorrectly_rotated_message">Image is rotated incorrectly</span>
+                </div>
+
+                <div id='submit-button'>
+                  <input type="submit" value="Submit" id ="submit_form" class="border-rounded"/>
+                </div>
+              </div> <!-- End of Submit div -->
+
+          </form> <!-- End of Form -->
+        </div> <!-- End of Content -->
+
+        <div style="clear:both;">&nbsp;</div>
+        <div id="footer">
+          <!-- Copyright(c) -->
+        </div>
+
+    </div> <!-- End of Wrapper -->
+
+    <!-- replace the container with this html when the form is submitted -->
+    <div id="success_message" style="display:none">
+      <div>Example #3 <a id="back" style="align:right">Back</a></div>
+      <h3>Great work. You have earned Rs 4 for such tasks.</h3>
+    </div>
+    <div id="failure_message" style="display:none">
+      <div>Example #3 <a id="back" style="align:right">Back</a></div>
+      <h3>You have not done good job.</h3>
+    </div>
+      <!-- :::: TEMPLATE FOR FORM ELEMENTS ::::: -->
+      <div id="template" style="display:none">
+        <div class="form-elements field-panel border-rounded">
+          <div class="name">
+            <label>Name:</label><br />
+            <div class="left">
+              <input style="text-transform: uppercase" type="text" name="output[first_name][]" data-valid-type="general" title="First Name" class="grave_detail_short" id="first_name"/>
+            </div>
+            <div class="left">
+              <input style="text-transform: uppercase" type="text" name="output[middle_name][]" data-valid-type="general" title="Middle Name" class="grave_detail_short" id="middle_name"/>
+            </div>
+            <div class="left">
+              <input style="text-transform: uppercase" type="text" name="output[surname][]" data-valid-type="general" title="Last Name" class="grave_detail_short" id="surname"/>
+              <img src="http://www.ibat.org/files/images/Legal_Ease_Question.jpg" width="20" height='20' tooltip_content="A Last name is often the largest name on a headstone, and is shared between people if more than one name is on the headstone. This field is on nearly every headstone." class = "tooltips" />
+            </div>
+            <div class="left">
+              <input style="text-transform: uppercase" type="text" name="output[suffix][]" data-valid-type="general" title = "suffix" class='name-suffix' id='suffix'/>
+
+              <img src="http://www.ibat.org/files/images/Legal_Ease_Question.jpg" width="20" height='20' tooltip_content="It appears after the person's full name and is in abbreviated format most of the time like M.D, Ph.D, D.Phil, D.D.S., D.M.D, JR, III, etc." class = "tooltips" />
+
+            </div>
+          </div>
+
+          <div class="date_info">
+            <div class="birth-date">
+              <label>Birth Date:</label><br/>
+              <div class="left">
+                <select name="output[birth_day][]" title="dd" id="birth_day" class="grave_detail_short date">
+                  <option value="">DAY</option>
+                  <option value="01">01</option>
+                  <option value="02">02</option>
+                  <option value="03">03</option>
+                  <option value="04">04</option>
+                  <option value="05">05</option>
+                  <option value="06">06</option>
+                  <option value="07">07</option>
+                  <option value="08">08</option>
+                  <option value="09">09</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                  <option value="26">26</option>
+                  <option value="27">27</option>
+                  <option value="28">28</option>
+                  <option value="29">29</option>
+                  <option value="30">30</option>
+                  <option value="31">31</option>
+                </select>
+
+              </div>
+              <div class="left">
+                <select name="output[birth_month][]" title="mm" id="birth_month" class="grave_detail_short date" >
+                  <option value="">MONTH</option>
+                  <option value="01">01 or JAN</option>
+                  <option value="02">02 or FEB</option>
+                  <option value="03">03 or MAR</option>
+                  <option value="04">04 or APR</option>
+                  <option value="05">05 or MAY</option>
+                  <option value="06">06 or JUN</option>
+                  <option value="07">07 or JUL</option>
+                  <option value="08">08 or AUG</option>
+                  <option value="09">09 or SEP</option>
+                  <option value="10">10 or OCT</option>
+                  <option value="11">11 or NOV</option>
+                  <option value="12">12 or DEC</option>
+                </select>
+              </div>
+              <div class="left">
+                <input style="text-transform: uppercase" type="text" name="output[birth_year][]" title="yyyy" id="birth_year" class="grave_detail_short date" maxlength="4" />
+              </div>
+            </div>
+            <div class="death-date">
+              <label>Death Date:</label><br/>
+              <div class="left">
+                <select name="output[death_day][]" title="dd" class="grave_detail_short date" id="death_day">
+                  <option value="">DAY</option>
+                  <option value="01">01</option>
+                  <option value="02">02</option>
+                  <option value="03">03</option>
+                  <option value="04">04</option>
+                  <option value="05">05</option>
+                  <option value="06">06</option>
+                  <option value="07">07</option>
+                  <option value="08">08</option>
+                  <option value="09">09</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                  <option value="26">26</option>
+                  <option value="27">27</option>
+                  <option value="28">28</option>
+                  <option value="29">29</option>
+                  <option value="30">30</option>
+                  <option value="31">31</option>
+                </select>
+
+              </div>
+              <div class="left">
+                <select name="output[death_month][]" title="mm" class="grave_detail_short date" id="death_month">
+                  <option value="">MONTH</option>
+                  <option value="01">01 or JAN</option>
+                  <option value="02">02 or FEB</option>
+                  <option value="03">03 or MAR</option>
+                  <option value="04">04 or APR</option>
+                  <option value="05">05 or MAY</option>
+                  <option value="06">06 or JUN</option>
+                  <option value="07">07 or JUL</option>
+                  <option value="08">08 or AUG</option>
+                  <option value="09">09 or SEP</option>
+                  <option value="10">10 or OCT</option>
+                  <option value="11">11 or NOV</option>
+                  <option value="12">12 or DEC</option>
+                </select>
+
+              </div>
+              <div class="left">
+                <input style="text-transform: uppercase" type="text" name="output[death_year][]" data-valid-type="/\d{4}/" title="yyyy" class="grave_detail_short date" id="death_year" maxlength="4" />
+              </div>
+            </div>
+            <div class="left">
+              <label>Gender:</label><br/>
+              <select name="output[gender][]" id="gender" class="gender">
+                <option value=""></option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="extra">
+            <label>Eulogy:</label>
+            <img src="http://www.ibat.org/files/images/Legal_Ease_Question.jpg" width="20" height='20' tooltip_content = "Piece of writing on the gravestone that praises the person" class="tooltips"/>
+            <br />
+            <textarea style="text-transform: uppercase" name="output[eulogy][]" id ="eulogy">
+            </textarea>
+          </div>
+          <label>Has this person served in military?</label><br />
+          <select name="output[veteran][]" class="military" id="military_option">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+          </select>
+          <br />
+          <div class="military_service_box" style="display:none">
+            <div class="mil_ser">
+              <label>Military Service</label><br />
+              <input style="text-transform: uppercase" type="text" name="output[military_service][]" class="grave_detail_long" id="military_service" />
+            </div>
+          </div>
+          <div id="judging_table"></div>
+        </div> <!-- End of Field-panel -->
+
+      </div> <!-- End of Template DIV -->
+
+  </body>
+
+</html>
