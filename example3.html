@@ -2,13 +2,29 @@
 <html lang="en">
 <head>
   <title>Example #3</title>
-  <style>
+  <style type="text/css">
+    body{
+      color:#000;
+      font:12px Arial;
+      margin:0;
+    }
+    h1, h2{
+      color:#29445E;
+    }
+    #wrapper {
+      margin: auto auto 20px;
+      position: relative;
+      width: 960px;
+    }
+    #container{
+      margin-top:30px;
+      overflow:hidden;
+      position:relative;
+    }
     #tooltip {  position: absolute;z-index: 3000; border: 1px solid #111;background-color: #eee;padding: 5px;opacity: 0.85;width: 300px;  }
     #tooltip h3, #tooltip div { margin: 0; }
-    body {  font-family: georgia;}
-    #wrapper { background: #FFF;position: relative; padding:0 10px;}
     #content {  margin: 0 auto;width: 960px;margin-bottom: 20px;}
-    #header { border-bottom: solid 1px grey;padding: 10px 0 0px;height: 50px;font-size: 28px;font-weight: bold;color: #666666;margin: 0 auto;width: 960px;  margin-bottom :3px;}
+    #header { border-bottom: solid 1px grey;margin-top: 25px;height: 35px;font-size: 24px;font-weight: bold;color: #666666;width: 960px;}
     ul{ list-style: decimal; }
     textarea { font-family: georgia, arial;width: 464px;border: 1px solid #AAAAAA; }
     select { height: 26px;margin-top: 4px;  padding-top: 4px;width: 117px;}
@@ -87,7 +103,7 @@
     #submit-button{ margin-right:140px; float:right;}
 
     /*  - - Worker Instruction  Lightbox - -  */
-    #instruction_button { color: #000;position: absolute; margin: -51px 468px; width: 135px;left:38%;padding:7px 0px 7px 12px;  border-radius:10px;background-color:#687096;}
+    #instruction_button { color: #000;position: absolute; width: 135px;right:0; top:100px;padding:7px 0px;  border-radius:10px;background-color:#687096; text-align:center;}
     #inst_button_text {text-decoration:none ;
     color:#fff ;}
     #facebox { position: absolute;width: 100%;top: 0;left: 0;z-index: 1000000000;text-align: left; }
@@ -426,12 +442,13 @@
 </head>
 
   <body>
+    <div id="wrapper">
     <h1>Example Tasks for CloudFactory</h1>
     Please try one or more of these example tasks to get an idea of work done. You need to do it as a CloudFactory Cloud Worker. This should enable you to get a general idea of how much you can earn through such tasks.
     <div id="user_message" style="display:none">
 
     </div>
-    <div id="wrapper">
+
         <div id="header"> Extract information from given grave stone. </div>
 
         <div id ="instruction_button">

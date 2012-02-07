@@ -15,8 +15,13 @@
   <script src="http://youversion.s3.amazonaws.com/lightbox.js" type="text/javascript"></script>
 
   <style>
-  body {
-    margin: 0;
+  body{
+    color:#000;
+    font:12px Arial;
+    margin:0;
+  }
+  h1, h2{
+    color:#29445E;
   }
   .logo, .logo a {
     float: left;
@@ -53,7 +58,8 @@
   #trascription_area {
     background-color: #29445E;
     border: 2px solid #C1D5E2;
-    float: left;
+    margin-top:30px;
+    overflow: hidden;
     padding: 10px;
     position: relative;
     width: 790px;
@@ -1633,6 +1639,7 @@
 
 </head>
 <body>
+  <div id = "wrapper">
   <h1>Example Tasks for CloudFactory</h1>
   <span>Please try one or more of these example tasks to get an idea of work done. You need to do it as a CloudFactory Cloud Worker. This should enable you to get a general idea of how much you can earn through such tasks.</span>
   <div id="user_message" style="display:none"></div>
@@ -1648,7 +1655,7 @@
     <p>CLick heart => Enter</p>
     <p>Play/pause => p</p>
   </div>
-  <div id = "wrapper">
+
     <div id = "trascription_area" class="all_rounded_corners">
       <div style="color:#fff;font-size:20px">Play the audio and click on the red heart icon when the audio reaches the word right before it. <a id='show_instruction' href="#instruction_text" rel="facebox"><img src='http://youversion.s3.amazonaws.com/help.png' alt='View instructions' style='margin-bottom: -8px;' /></a></div>
 
