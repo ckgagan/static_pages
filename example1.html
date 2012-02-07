@@ -1601,7 +1601,7 @@
 
   function analyzeTimeCodes () {
     correct = 0
-    inconsistent_error_present = false;
+    inconsistent_error_present = true;
     if(timecodes_to_submit.length ==  expected_timecodes.length){
       $.each(expected_timecodes, function(index, value) {
         if(Math.abs(timecodes_to_submit[index] - expected_timecodes[index]) < consistency_threshold) {
@@ -1693,12 +1693,12 @@
 
   <!-- replace the container with this html when the form is submitted -->
   <div id="success_message" style="display:none">
-    <div>Example #1 <a id="back" style="align:right">Back</a></div>
-    <h3>Great work. You have earned Rs 6.5 for such tasks.</h3>
+    <div>Example #1 <a href="index.html" >Back</a></div>
+    <h3>Great work. You will earn Rs 6.5 with such work in CloudFactory.</h3>
   </div>
   <div id="failure_message" style="display:none">
-    <div>Example #1 <a id="back" style="align:right">Back</a></div>
-    <h3>You have not done good job.</h3>
+    <div>Example #1 <a href="index.html" >Back</a></div>
+    <h3>Uh oh, you made a mistake. You could have made Rs 6.5 with such work in CloudFactory.<a href="#" id="back">Retry</a></h3>
   </div>
 </body>
 </html>

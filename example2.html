@@ -32,16 +32,16 @@
 <div id="container">
   <a id="instruction_button">INSTRUCTIONS</a>
   <div id = "instruction_container" style="display:none">
-    <h3 class="header-txt"> Please fill up as many fields as possible.</h3>
     <div id = "instruction_content">
-      <div>
-      <a class = "tab_link selected" id = "general_instruction_link" href = "javascript:">General</a>
-      <a class = "tab_link" id = "address_instruction_link" href = "javascript:">Address</a>
-      </div>
       <div id = "instruction_text">
+        <h3>Instructions</h3>
+        <div>
+         <a class = "tab_link selected" id = "general_instruction_link" href = "javascript:">General</a>
+         <a class = "tab_link" id = "address_instruction_link" href = "javascript:">Address</a>
+         </div>
         <div id = "general_instruction">
-          <h3>Instructions</h3>
           <ul>
+            <li>Please fill up as many fields as possible.</li>
             <li>Enter all text from the business card into appropriate field exactly as it appears in the business card.</li>
             <li>Hover your mouse over the business card to have magnified view.</li>
             <li>If the field does not exist in the business card, leave it <strong>blank</strong> except for <strong>state</strong> and <strong>country</strong>.</li>
@@ -508,12 +508,12 @@
     </div> <!-- End of container -->
   </div>
   <div id="success_message" style="display:none">
-    <div>Example #2 <a id="back" style="align:right">Back</a></div>
-    <h3>Great work. You have earned Rs 4 for such tasks.</h3>
+    <div>Example #2 <a href="index.html" >Back</a></div>
+    <h3>Great work. You will earn Rs 4 with such work in CloudFactory. </h3>
   </div>
   <div id="failure_message" style="display:none">
-    <div>Example #2 <a id="back" style="align:right">Back</a></div>
-    <h3>You have not done good job.</h3>
+    <div>Example #2 <a href="index.html" >Back</a></div>
+    <h3>Uh oh, you made a mistake. You could have made Rs 4 with such work in CloudFactory.<a href="#" id="back">Retry</a></h3>
   </div>
 </div>
   <style>
